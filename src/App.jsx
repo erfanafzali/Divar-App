@@ -1,12 +1,12 @@
-import AuthPage from "./pages/AuthPage";
 import { Toaster } from "react-hot-toast";
+import Router from "./routers/Router";
 
 function App() {
   return (
-    <div className="w-full">
+    <>
       <Toaster />
-      <AuthPage />
-    </div>
+      <Router />
+    </>
   );
 }
 
