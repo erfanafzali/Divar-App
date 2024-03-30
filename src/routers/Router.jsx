@@ -11,9 +11,13 @@ function Router() {
   const queryKey = ["profile"];
   const queryFn = getProfile;
 
-  const { data, isLoading ,error , isFetching} = useQuery({ queryKey, queryFn });
+  const { data, isLoading, error } = useQuery({
+    queryKey,
+    queryFn,
+  });
+  console.log({data , error , isLoading})
 
-  console.log({ data, isLoading, error , isFetching });
+  if (isLoading) return <div>Loading ...</div>;
 
   return (
     <Routes>

@@ -9,6 +9,8 @@ const sendOtp = async (mobile) => {
   }
 };
 
+
+// check OTP code and mobile number => to login
 const checkOtp = async (mobile , code) => {
   try {
     const response = await api.post("auth/check-otp", {mobile , code});
