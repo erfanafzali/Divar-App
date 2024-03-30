@@ -1,8 +1,20 @@
 import { checkOtp } from "../../services/auth";
 import toast from "react-hot-toast";
 import { setCookie } from "../../utils/cookie";
+import { useNavigate } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+import { getProfile } from "../../services/user";
 
 function CheckOtpForm({ mobile, setStep, code, setCode }) {
+  const queryKey = ["profile"];
+  const queryFn = getProfile;
+
+  const { refetch } = useQuery({
+    queryKey,
+    queryFn,
+  });
+
+  const navigate = useNavigate();
   //create a handler to handle sendOTP
   const submitHandler = async (event) => {
     event.preventDefault();
@@ -27,6 +39,8 @@ function CheckOtpForm({ mobile, setStep, code, setCode }) {
       });
       //setCookie for set => refreshToken & accessToken
       setCookie(response.data);
+      navigate("/");
+      refetch();
     }
     // if not OK
     if (error) {
