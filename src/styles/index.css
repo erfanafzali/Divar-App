@@ -30,3 +30,7 @@ input,
 select {
   font-family: inherit;
 }
+
+form button:disabled {
+  opacity: 0.5;
+}

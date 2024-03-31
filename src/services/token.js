@@ -1,6 +1,8 @@
 import api from "../configs/api";
 import { getCookie } from "../utils/cookie";
 
+
+//get new token to set new accessToken from refreshToken
 const getNewTokens = async () => {
   const refreshToken = getCookie("refreshToken");
   if (!refreshToken) return;

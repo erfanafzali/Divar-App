@@ -1,11 +1,14 @@
 import { Toaster } from "react-hot-toast";
 import Router from "./routers/Router";
+import Layout from "./layouts/Layout";
 
 function App() {
   return (
     <>
       <Toaster />
-      <Router />
+      <Layout>
+        <Router />
+      </Layout>
     </>
   );
 }

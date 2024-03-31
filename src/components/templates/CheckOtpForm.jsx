@@ -40,6 +40,7 @@ function CheckOtpForm({ mobile, setStep, code, setCode }) {
       //setCookie for set => refreshToken & accessToken
       setCookie(response.data);
       navigate("/");
+      //refetch data("profile") when navigate to home page
       refetch();
     }
     // if not OK
