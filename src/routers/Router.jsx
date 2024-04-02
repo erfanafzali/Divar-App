@@ -16,7 +16,7 @@ function Router() {
     queryKey,
     queryFn,
   });
-  console.log({ data, error, isLoading });
+ 
 
   if (isLoading) return <Loader/>;
 

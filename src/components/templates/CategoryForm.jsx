@@ -7,7 +7,6 @@ function CategoryForm() {
   const mutationFn = addCategory;
 
   const { mutate, error, isPending, data } = useMutation({ mutationFn });
-  console.log({ error, isPending, data });
 
   const changeHandler = (event) => {
     setForm({ ...form, [event.target.name]: event.target.value });
@@ -17,6 +16,7 @@ function CategoryForm() {
     event.preventDefault();
 
     if (!form.name || !form.slug || !form.icon) return;
+
     mutate(form);
   };
 
@@ -27,8 +27,14 @@ function CategoryForm() {
       className="w-full flex flex-col justify-start items-start"
     >
       <h1 className="text-lg md:text-xl font-bold">دسته بندی جدید</h1>
+
+      {/* notif handler */}
       {!!error && <p>{error.message}</p>}
-      {data?.status === 201 && <p>دسته بندی با موفقیت اضافه شد</p>}
+      {data?.status === 201 && (
+        <p className="w-full bg-red-600 text-white font-bold text-lg text-center py-1.5 rounded-md mt-3">
+          دسته بندی با موفقیت اضافه شد
+        </p>
+      )}
 
       {/* name */}
       <div className="w-full flex justify-center gap-x-2 items-start flex-col mt-5">
