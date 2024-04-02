@@ -5,11 +5,14 @@ function CategoryList() {
   const queryKey = ["get-categories"];
   const queryFn = getCategory;
 
-  const { error, data, isLoading } = useQuery({ queryKey, queryFn });
-  console.log({ error, data, isLoading });
+  const { data, isLoading, refetch } = useQuery({
+    queryKey,
+    queryFn,
+  });
 
-  const deleteHandler = (id) => {
-    deleteCategory(id);
+  const deleteHandler = async (id) => {
+    await deleteCategory(id);
+    refetch();
   };
 
   return (
@@ -36,7 +39,7 @@ function CategoryList() {
               </div>
 
               <button
-                onClick={deleteHandler(item._id)}
+                onClick={() => deleteHandler(item._id)}
                 className="bg-red-500 px-4 py-1 rounded-md text-white"
               >
                 Delete

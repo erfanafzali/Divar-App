@@ -1,12 +1,17 @@
 import { useState } from "react";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { addCategory } from "../../services/admin";
 
 function CategoryForm() {
+  const queryClient = useQueryClient();
+
   const [form, setForm] = useState({ name: "", slug: "", icon: "" });
   const mutationFn = addCategory;
 
-  const { mutate, error, isPending, data } = useMutation({ mutationFn });
+  const { mutate, error, isPending, data  } = useMutation({
+    mutationFn,
+    onSuccess: () => queryClient.invalidateQueries("get-categories"),
+  });
 
   const changeHandler = (event) => {
     setForm({ ...form, [event.target.name]: event.target.value });
@@ -14,14 +19,15 @@ function CategoryForm() {
 
   const submitHandler = (event) => {
     event.preventDefault();
-
-    if (!form.name || !form.slug || !form.icon) return;
+    if (!form.name || !form.slug || !form.icon) return ;
 
     mutate(form);
+     
   };
 
   return (
     <form
+    
       onChange={changeHandler}
       onSubmit={submitHandler}
       className="w-full flex flex-col justify-start items-start"
