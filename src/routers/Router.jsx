@@ -12,7 +12,7 @@ function Router() {
   const queryKey = ["profile"];
   const queryFn = getProfile;
 
-  const { data, isLoading, error } = useQuery({
+  const { data, isLoading } = useQuery({
     queryKey,
     queryFn,
   });
