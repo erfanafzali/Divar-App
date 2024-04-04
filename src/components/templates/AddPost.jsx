@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { getCategory } from "../../services/admin";
 import { useQuery } from "@tanstack/react-query";
+import { getCookie } from "../../utils/cookie";
+import axios from "axios";
 
 function AddPost() {
   const [form, setForm] = useState({
@@ -31,7 +33,24 @@ function AddPost() {
 
   const addHandler = (event) => {
     event.preventDefault();
-    console.log(form);
+    //  post/create
+    const formData = new FormData();
+    // formData.append("title", form["title"]);
+    for (let i in form) {
+      formData.append(i, form[i]);
+    }
+
+    const token = getCookie("accessToken");
+
+    axios
+      .post(`${import.meta.env.VITE_BASE_URL}post/create`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: `bearer ${token}`,
+        },
+      })
+      .then((res) => console.log(res))
+      .catch((error) => console.log(error));
   };
 
   return (
@@ -61,7 +80,7 @@ function AddPost() {
           name="content"
           id="content"
           className="w-full border-2 border-red-700 rounded-md resize-none outline-0 px-3 py-1"
-        ></textarea>
+        />
       </div>
       {/* amount */}
       <div className="w-full md:w-1/3 space-y-2 mb-4">
@@ -69,7 +88,7 @@ function AddPost() {
           قیمت:
         </label>
         <input
-          type="text"
+          type="number"
           name="amount"
           id="amount"
           className="border-2 border-red-700 rounded-md w-full outline-0 py-1 px-3"
