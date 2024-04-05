@@ -2,15 +2,16 @@ import { useState } from "react";
 import { getCategory } from "../../services/admin";
 import { useQuery } from "@tanstack/react-query";
 import { getCookie } from "../../utils/cookie";
+import { toast } from "react-hot-toast";
 import axios from "axios";
 
 function AddPost() {
   const [form, setForm] = useState({
     title: "",
     content: "",
-    amount: null,
-    city: "",
     category: "",
+    city: "",
+    amount: null,
     images: null,
   });
 
@@ -39,17 +40,30 @@ function AddPost() {
     for (let i in form) {
       formData.append(i, form[i]);
     }
-
+    // send token to auth my id
     const token = getCookie("accessToken");
 
     axios
       .post(`${import.meta.env.VITE_BASE_URL}post/create`, formData, {
+        // when my data is file set this header
         headers: {
           "Content-Type": "multipart/form-data",
           Authorization: `bearer ${token}`,
         },
       })
-      .then((res) => console.log(res))
+      .then((res) =>
+        toast.success(res.data.message, {
+          style: {
+            border: "1px solid #008b19",
+            padding: "16px",
+            color: "#027d00",
+          },
+          iconTheme: {
+            primary: "#005d06",
+            secondary: "#96dda7",
+          },
+        })
+      )
       .catch((error) => console.log(error));
   };
 
@@ -117,7 +131,9 @@ function AddPost() {
           className="w-full py-1 px-3 border-2 border-red-700 outline-0 rounded-md"
         >
           {data?.data.map((item) => (
-            <option key={item._id}>{item.name}</option>
+            <option key={item._id} value={item._id}>
+              {item.name}
+            </option>
           ))}
         </select>
       </div>
