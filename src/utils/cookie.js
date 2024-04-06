@@ -9,7 +9,6 @@ const setCookie = (tokens) => {
   }`;
 };
 
-
 // for get accessToken & refreshToken
 const getCookie = (cookieName) => {
   return document.cookie
@@ -18,4 +17,13 @@ const getCookie = (cookieName) => {
     ?.split("=")[1];
 };
 
-export { setCookie, getCookie };
+//delete cookie to exit account
+const deleteCookies = () => {
+  document.cookie.split(";").forEach(function (c) {
+    document.cookie = c
+      .replace(/^ +/, "")
+      .replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/");
+  });
+};
+
+export { setCookie, getCookie, deleteCookies };

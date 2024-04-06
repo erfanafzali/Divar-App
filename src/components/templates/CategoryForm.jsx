@@ -7,7 +7,7 @@ function CategoryForm() {
 
   const [form, setForm] = useState({ name: "", slug: "", icon: "" });
   const mutationFn = addCategory;
-
+ 
   const { mutate, error, isPending, data  } = useMutation({
     mutationFn,
     onSuccess: () => queryClient.invalidateQueries("get-categories"),
