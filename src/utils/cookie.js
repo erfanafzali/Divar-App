@@ -17,7 +17,7 @@ const getCookie = (cookieName) => {
     ?.split("=")[1];
 };
 
-//delete cookie to exit account
+// delete cookie to exit account
 const deleteCookies = () => {
   document.cookie.split(";").forEach(function (c) {
     document.cookie = c

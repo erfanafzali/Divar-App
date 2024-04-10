@@ -14,6 +14,8 @@ function CheckOtpForm({ mobile, setStep, code, setCode }) {
     queryFn,
   });
 
+   
+
   const navigate = useNavigate();
   //create a handler to handle sendOTP
   const submitHandler = async (event) => {

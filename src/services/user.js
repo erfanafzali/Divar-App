@@ -1,6 +1,14 @@
 import api from "../configs/api";
 
-const getProfile = () => api.get("user/whoami").then((res) => res || false);
+const getProfile = async () => {
+  try {
+    const res = await api.get("user/whoami");
+    return res || false;
+  } catch (error) {
+    console.error(error);
+    return false;
+  }
+};
 
 const getPost = () => api.get("post/my");
 
